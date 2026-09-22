@@ -1,10 +1,11 @@
 # 📰 News Recommendation System
 
-A personalized **News Recommendation System** that helps users discover relevant news articles based on their interests and interactions.
+A **Content-Based News Recommendation System** that helps users discover relevant news articles based on the **content of the articles**.
 
-The system presents users with a selection of news articles and collects their preferences through **Like/Dislike interactions**. Based on the categories of articles the user likes, the application identifies preferred categories and generates a personalized set of news recommendations.
+The system uses the **headline and short description** of news articles to identify similar content. **TF-IDF Vectorization** is used to convert the text into numerical vectors, and **K-Nearest Neighbors (KNN)** with **Cosine Distance** is used to find and recommend the most similar news articles.
 
-The project is developed using **Python and Streamlit**, with Pandas and Scikit-learn used for data processing and text representation.
+The project is developed using **Python and Flask**, with Pandas and Scikit-learn used for data processing and machine learning. The frontend is built using **HTML, CSS, JavaScript, and Bootstrap**.
+
 
 ---
 
