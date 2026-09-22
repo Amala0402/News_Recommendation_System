@@ -2,52 +2,69 @@
 
 A **Content-Based News Recommendation System** that helps users discover relevant news articles based on the **content of the articles**.
 
-The system uses the **headline and short description** of news articles to identify similar content. **TF-IDF Vectorization** is used to convert the text into numerical vectors, and **K-Nearest Neighbors (KNN)** with **Cosine Distance** is used to find and recommend the most similar news articles.
+The system uses the **headline and short description** of news articles to identify similar content. **TF-IDF (Term Frequency–Inverse Document Frequency)** is used to convert article text into numerical vectors, and **K-Nearest Neighbors (KNN)** with **Cosine Distance** is used to find and recommend the most similar news articles.
 
 The project is developed using **Python and Flask**, with Pandas and Scikit-learn used for data processing and machine learning. The frontend is built using **HTML, CSS, JavaScript, and Bootstrap**.
-
 
 ---
 
 ## 🚀 Features
 
-* 📰 Personalized news discovery
-* 👍 Like and 👎 Dislike based user interaction
-* 🎯 Category-based personalized recommendations
-* 🔄 Dynamic recommendation generation
-* 🚫 Prevents previously rated articles from appearing again
-* 📊 Category-based article selection
+* 📰 Content-based news recommendations
+* 🔍 Search-based news recommendations
 * 🧠 TF-IDF text vectorization
-* 💾 Session-based preference tracking
-* 📱 Interactive Streamlit web interface
-* 🎨 Category-specific visual elements
-* 🔁 Restart option when suitable recommendations are unavailable
+* 🤖 K-Nearest Neighbors (KNN)
+* 📐 Cosine distance-based similarity
+* 📝 Uses headline and short description as article content
+* 🏷️ News category analysis
+* 📊 Category statistics
+* 🎲 Random news article selection
+* 🌐 Flask REST API
+* 💻 Interactive web interface
+* 📱 Responsive Bootstrap-based UI
+* 🌙 Dark mode support
 
 ---
 
 ## 🛠️ Technologies Used
 
-| Technology       | Purpose                                           |
-| ---------------- | ------------------------------------------------- |
-| **Python**       | Core application and recommendation logic         |
-| **Pandas**       | Loading, cleaning and processing the news dataset |
-| **NumPy**        | Numerical and data operations                     |
-| **Scikit-learn** | TF-IDF vectorization                              |
-| **Streamlit**    | Interactive web application                       |
-| **CSV**          | Storage of news article data                      |
+| Technology       | Purpose                                      |
+| ---------------- | -------------------------------------------- |
+| **Python**       | Core application and recommendation logic    |
+| **Flask**        | Backend server and REST APIs                 |
+| **Pandas**       | Loading, cleaning and processing the dataset |
+| **NumPy**        | Numerical and data operations                |
+| **Scikit-learn** | TF-IDF and KNN implementation                |
+| **HTML**         | Web page structure                           |
+| **CSS**          | Styling and UI customization                 |
+| **JavaScript**   | Frontend logic and API communication         |
+| **Bootstrap**    | Responsive web interface                     |
+| **Kaggle**       | News dataset source                          |
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-News_Recommendation_System/
+News-Recommendation-system-main/
 │
-├── app.py
-│   └── Main Streamlit application
-│
-├── news.csv
-│   └── News article dataset
+├── server/
+│   ├── app.py
+│   │   └── Flask application and REST APIs
+│   │
+│   ├── model.py
+│   │   └── Data preprocessing and recommendation model
+│   │
+│   ├── static/
+│   │   ├── main.js
+│   │   │   └── Frontend logic and API communication
+│   │   │
+│   │   └── style.css
+│   │       └── Application styling
+│   │
+│   └── templates/
+│       └── index.html
+│           └── Main web interface
 │
 ├── requirements.txt
 │   └── Required Python libraries
@@ -61,364 +78,567 @@ News_Recommendation_System/
 # 🔄 System Workflow
 
 ```text
-                  ┌──────────────────┐
-                  │    News Dataset  │
-                  │     news.csv     │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ Data Processing  │
-                  │ & Preparation    │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ Initial Article  │
-                  │    Selection     │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ User Interaction │
-                  │   Like / Dislike │
-                  └────────┬─────────┘
-                           │
-                    ┌──────┴──────┐
-                    ▼             ▼
-                  Like         Dislike
-                    │             │
-                    ▼             ▼
-             Store Preference   Store Category
-                    │             │
-                    └──────┬──────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ Preference       │
-                  │ Analysis         │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ Find Candidate   │
-                  │ Articles         │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ Remove Previously│
-                  │ Rated Articles   │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │ Personalized    │
-                  │ News Feed        │
-                  └──────────────────┘
+                  ┌──────────────────────┐
+                  │   Kaggle News Dataset│
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │  Data Preprocessing  │
+                  │  Missing Values      │
+                  │  Remove Duplicates   │
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │ Headline + Short     │
+                  │ Description          │
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │   TF-IDF Vectorizer  │
+                  │    Text → Vectors    │
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │      KNN Model       │
+                  │   Cosine Distance    │
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │   User Search Query  │
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │ Query → TF-IDF Vector│
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │ Find Similar Articles│
+                  └──────────┬───────────┘
+                             │
+                             ▼
+                  ┌──────────────────────┐
+                  │ Top K Recommendations│
+                  └──────────────────────┘
 ```
 
 ---
 
 # 🧠 How the Recommendation System Works
 
-The recommendation process is based mainly on **user preferences and news categories**.
+The recommendation process is based on the **content of the news articles**.
 
 ### 1. Dataset Loading
 
-The application loads the news dataset from `news.csv`.
+The application downloads and loads the **News Category Dataset** from Kaggle.
 
-The dataset contains information related to news articles, which is processed before being displayed to the user.
+The dataset contains information such as:
 
-The data processing stage prepares the article information so that it can be used by the recommendation system.
+```text
+Headline
+Short Description
+Category
+Article Link
+```
+
+The dataset is loaded and processed using **Pandas**.
 
 ---
 
-### 2. Initial Article Selection
+### 2. Data Preprocessing
 
-When the application starts, a set of news articles is selected for the user to evaluate.
+Before building the recommendation model, the news data is cleaned.
 
-The initial articles are selected from different categories so that the user gets exposure to different types of news.
+The system:
 
-For example:
+* Handles missing headlines
+* Handles missing descriptions
+* Handles missing categories
+* Converts text values into strings
+* Combines headline and short description
+* Removes empty articles
+* Removes duplicate article content
+* Creates a unique article ID
+
+The article content is created using:
 
 ```text
-Technology → Article 1
-Sports     → Article 2
-Business   → Article 3
-Science    → Article 4
-Politics   → Article 5
+Headline + Short Description
 ```
 
-This gives the recommendation system an initial understanding of the user's interests.
+This combined content is used for the recommendation process.
 
 ---
 
-### 3. User Preference Collection
+### 3. TF-IDF Vectorization
 
-The user can interact with each article using:
+The combined article content is converted into numerical vectors using **TF-IDF**.
 
-```text
-👍 Like
-👎 Dislike
+The project uses:
+
+```python
+TfidfVectorizer(
+    stop_words='english',
+    max_features=5000,
+    ngram_range=(1, 2),
+    min_df=2,
+    max_df=0.8
+)
 ```
 
-When an article is liked, the system records its information and identifies its category.
+TF-IDF gives numerical importance to words based on their occurrence across the news articles.
 
-For example:
-
-```text
-User Likes:
-
-Technology
-Sports
-Science
-```
-
-These categories become indicators of the user's current interests.
-
----
-
-### 4. Preference Analysis
-
-The system examines the categories associated with the articles liked by the user.
-
-For example:
+The process is:
 
 ```text
-Liked Articles
+Article Content
       ↓
-Identify Categories
+Remove Stop Words
       ↓
-Technology
-Sports
-Science
+Extract Words / Word Pairs
       ↓
-Create Preference Set
+Calculate TF-IDF
+      ↓
+Numerical Vector
 ```
-
-This preference information is then used to identify suitable candidate articles.
 
 ---
 
-### 5. Candidate Article Selection
+### 4. KNN Model
 
-The system searches the available news dataset for articles belonging to the user's preferred categories.
+After converting the article content into numerical vectors, the project uses **K-Nearest Neighbors (KNN)** to find similar articles.
+
+The model uses **Cosine Distance** to compare the article vectors.
+
+```text
+Article Vectors
+      ↓
+KNN Model
+      ↓
+Cosine Distance
+      ↓
+Nearest Articles
+```
+
+---
+
+### 5. Cosine Distance
+
+Cosine distance is used to measure how different two text vectors are.
+
+The project converts the distance into a similarity score using:
+
+```text
+Similarity = 1 - Cosine Distance
+```
+
+A smaller cosine distance indicates that the articles are more similar.
+
+---
+
+### 6. User Search Query
+
+When the user enters a search query, the query is converted into a TF-IDF vector using the same vectorizer.
 
 For example:
 
 ```text
-Preferred Categories
-        ↓
-Technology + Sports + Science
-        ↓
-Search Dataset
-        ↓
-Find Matching Articles
+User Query:
+
+"artificial intelligence technology"
 ```
 
-Articles that match the user's preferred categories become recommendation candidates.
-
----
-
-### 6. Filtering Previously Rated Articles
-
-Articles that the user has already interacted with are excluded from the recommendation list.
-
-This prevents the application from repeatedly showing the same articles during the current session.
+The process is:
 
 ```text
-Candidate Articles
-        ↓
-Check Rated Articles
-        ↓
-Remove Previously Rated Articles
-        ↓
-Remaining Articles
+User Query
+     ↓
+TF-IDF Transformation
+     ↓
+Query Vector
+     ↓
+KNN Search
+     ↓
+Cosine Distance
+     ↓
+Top K Similar Articles
 ```
 
 ---
 
 ### 7. Recommendation Generation
 
-After filtering, the system selects suitable articles from the remaining candidates and displays them as the user's personalized news feed.
+The KNN model finds the nearest article vectors to the user's query vector.
 
-The recommendation process therefore follows:
+The system then returns the top K similar articles.
+
+For example:
 
 ```text
-User Interaction
-       ↓
-Liked Categories
-       ↓
-Category Filtering
-       ↓
-Remove Rated Articles
-       ↓
-Generate Recommendations
+User Query
+     ↓
+Find Similar Articles
+     ↓
+Top 5 Articles
+     ↓
+Display Recommendations
+```
+
+The recommended articles contain information such as:
+
+```text
+Headline
+Category
+Short Description
+Article Link
+Similarity Score
 ```
 
 ---
 
-# 🤖 TF-IDF Component
+# 🧠 TF-IDF Component
 
-The project also includes **TF-IDF Vectorization** using Scikit-learn.
+**TF-IDF** stands for **Term Frequency–Inverse Document Frequency**.
 
-TF-IDF stands for **Term Frequency–Inverse Document Frequency** and is commonly used to represent text as numerical vectors.
+It is used to convert news article text into numerical vectors so that the text can be compared mathematically.
 
-The project initializes a TF-IDF vectorizer to provide a foundation for text-based recommendation functionality.
+The project uses:
 
 ```python
-TfidfVectorizer(stop_words='english')
+TfidfVectorizer(
+    stop_words='english',
+    max_features=5000,
+    ngram_range=(1, 2),
+    min_df=2,
+    max_df=0.8
+)
 ```
 
-The TF-IDF component can be extended in future versions to calculate similarity between articles and provide more advanced content-based recommendations.
-
-### Current Recommendation Approach
-
-The main recommendation flow is based on:
+### TF-IDF Process
 
 ```text
-User Preference
-      ↓
-Liked Categories
-      ↓
-Category Filtering
-      ↓
-Article Selection
-      ↓
-Personalized Recommendations
+News Article
+     ↓
+Text Processing
+     ↓
+Remove Stop Words
+     ↓
+Calculate TF
+     ↓
+Calculate IDF
+     ↓
+TF × IDF
+     ↓
+Numerical Vector
 ```
 
-Therefore, the current system should be described primarily as a **preference/category-based recommendation system**, with TF-IDF providing a foundation for future content-similarity improvements.
+The resulting vectors are used by KNN to find similar news articles.
 
 ---
 
-# 🛡️ Edge Cases
+# 🤖 KNN Recommendation
 
-The system also considers situations where suitable recommendations may not be immediately available.
+The project uses **K-Nearest Neighbors** to find the closest news articles to the user's search query.
 
-### User Dislikes Initial Articles
-
-If the user dislikes the initially displayed articles, the system can use the interaction information to avoid unsuitable categories and provide another set of articles.
+The recommendation process is:
 
 ```text
-Articles Disliked
-       ↓
-Identify Disliked Categories
-       ↓
-Avoid Unsuitable Articles
-       ↓
-Generate Another Selection
+User Query
+     ↓
+Convert Query to TF-IDF Vector
+     ↓
+Compare With Article Vectors
+     ↓
+Calculate Cosine Distance
+     ↓
+Find Nearest Neighbors
+     ↓
+Select Top K
+     ↓
+Recommended News
+```
+
+The default recommendation count is **5 articles**.
+
+---
+
+# 🏷️ Category Analysis
+
+The system also provides information about the categories available in the dataset.
+
+The category API returns:
+
+```text
+Total Articles
+Total Categories
+Category Name
+Article Count
+Percentage
+```
+
+This allows the application to display category statistics from the news dataset.
+
+---
+
+# 🎲 Random Articles
+
+The application also provides a random article feature.
+
+Random articles are selected from the processed dataset and displayed on the frontend.
+
+```text
+News Dataset
+     ↓
+Random Selection
+     ↓
+Random Articles
+     ↓
+Display on Web Page
+```
+
+This allows users to discover news articles without entering a search query.
+
+---
+
+# 🌐 Backend API
+
+The backend is developed using **Flask**.
+
+The Flask application provides REST APIs that connect the frontend with the recommendation model.
+
+### Get Categories
+
+```text
+GET /api/categories
+```
+
+Returns category statistics and article information.
+
+---
+
+### Get Recommendations
+
+```text
+POST /api/recommend
+```
+
+Accepts a search query and returns similar news articles.
+
+Example request:
+
+```json
+{
+  "query": "artificial intelligence technology",
+  "top_k": 5
+}
 ```
 
 ---
 
-### No Suitable Recommendations
+### Get Random Articles
 
-If suitable articles cannot be found for the user's preferences, the application provides an appropriate message and allows the user to restart the recommendation process.
+```text
+GET /api/random_articles
+```
 
-This helps maintain a smooth user experience instead of leaving the recommendation section empty.
+Returns randomly selected news articles.
+
+Example:
+
+```text
+/api/random_articles?n=6
+```
 
 ---
 
 # 🎨 User Interface
 
-The application is built using **Streamlit**, providing an interactive and easy-to-use interface.
+The application provides an interactive web interface built using:
+
+* HTML
+* CSS
+* JavaScript
+* Bootstrap 5
 
 The interface includes:
 
-* 📰 News article display
-* 👍 Like button
-* 👎 Dislike button
-* 📊 User interaction progress
-* 🎯 Personalized recommendation section
-* 🏷️ Category information
-* 🎨 Custom styling
-* 🔄 Restart functionality
+* 🔍 Search box for news queries
+* 📰 Recommended Articles section
+* 🎲 Random Articles section
+* 🏷️ News category information
+* 🌙 Dark mode toggle
+* 📱 Responsive design
 
-The interface allows users to interact with news articles directly and receive recommendations without requiring complex input.
+When the user enters a search query, the frontend sends the query to the Flask backend. The backend processes the query using **TF-IDF and KNN**, finds similar articles, and returns the recommendations to the frontend.
+
+---
+
+# 🔗 Frontend–Backend Communication
+
+The communication flow is:
+
+```text
+                    User
+                      │
+                      ▼
+              Enter Search Query
+                      │
+                      ▼
+             JavaScript Frontend
+                      │
+                      ▼
+                Flask API
+                      │
+                      ▼
+          Recommendation Engine
+                      │
+                      ▼
+                 TF-IDF
+                      │
+                      ▼
+               KNN + Cosine
+                      │
+                      ▼
+             Similar Articles
+                      │
+                      ▼
+              Flask Response
+                      │
+                      ▼
+             JavaScript Frontend
+                      │
+                      ▼
+          Display Recommendations
+```
+
+---
+
+# 🛡️ Edge Cases
+
+The system handles several common cases during recommendation.
+
+### Empty Search Query
+
+If the user enters an empty query, the recommendation process does not continue.
+
+---
+
+### Missing Dataset
+
+If the dataset cannot be loaded or is empty, the application stops with an appropriate error message.
+
+---
+
+### Missing Values
+
+Missing headlines, descriptions, and categories are handled during preprocessing.
+
+---
+
+### Duplicate Articles
+
+Duplicate article content is removed during preprocessing to avoid repeated content in the recommendation dataset.
+
+---
+
+### Small Dataset
+
+For smaller datasets, the system adjusts the maximum number of TF-IDF features to avoid unnecessary feature size.
 
 ---
 
 # 📊 Dataset
 
-The project uses a CSV-based news dataset.
+The project uses the **News Category Dataset** from Kaggle.
 
-The dataset provides the information required for displaying articles and determining their categories.
-
-Typical information used by the recommendation system includes:
+The dataset contains information such as:
 
 ```text
-Article ID
-Category
-Subcategory
 Headline
-Summary
+Short Description
+Category
 Article Link
 ```
 
-The dataset is loaded and processed using **Pandas** before being used by the application.
+The recommendation system mainly uses:
+
+```text
+Headline + Short Description
+```
+
+as the article content.
 
 ---
 
 # 🔮 Future Improvements
 
-The current recommendation system can be enhanced further with more advanced recommendation techniques.
+The current content-based recommendation system can be enhanced with:
 
-Possible improvements include:
-
-* 🔹 Content similarity using article headlines and summaries
-* 🔹 Cosine similarity between article vectors
-* 🔹 User preference scoring
-* 🔹 Weighted Like/Dislike preferences
+* 🔹 User profiles and personalized recommendations
+* 🔹 User recommendation history
+* 🔹 Like/Dislike functionality
 * 🔹 Collaborative filtering
 * 🔹 Hybrid recommendation techniques
-* 🔹 Machine-learning-based ranking
-* 🔹 Persistent user profiles
+* 🔹 Advanced NLP techniques
+* 🔹 More article text features
 * 🔹 Recommendation accuracy evaluation
-* 🔹 Article popularity analysis
-* 🔹 Real-time news collection
-* 🔹 More advanced personalization
-
-A future version could represent each article using its **headline and summary**, convert the text into TF-IDF vectors, and calculate similarity to recommend articles that are more closely related to the user's interests.
+* 🔹 Real-time news updates
+* 🔹 Online deployment
 
 ---
 
 # 🎯 Project Highlights
 
-* 📰 Developed an interactive **personalized news recommendation system**
-* 🎯 Uses user interactions to identify preferred news categories
-* 👍 Implements Like/Dislike based preference collection
-* 🔄 Generates recommendations dynamically
-* 🚫 Prevents previously rated articles from being repeatedly recommended
-* 🧠 Integrates TF-IDF vectorization as a foundation for advanced text-based recommendations
-* 📊 Uses Pandas for efficient dataset processing
-* 💻 Provides an interactive Streamlit interface
-* 🎨 Focuses on simple and user-friendly news discovery
+* 📰 Developed a **Content-Based News Recommendation System**
+* 🧠 Used **TF-IDF Vectorization** to represent news article content
+* 🤖 Used **K-Nearest Neighbors (KNN)** to find similar articles
+* 📐 Used **Cosine Distance** to measure article similarity
+* 🔍 Implemented search-based news recommendations
+* 📝 Used **headline and short description** as article content
+* 🧹 Implemented data preprocessing and duplicate removal
+* 🏷️ Implemented news category analysis
+* 🎲 Added random article discovery
+* 🌐 Developed REST APIs using Flask
+* 💻 Built the frontend using HTML, CSS, JavaScript, and Bootstrap
+* 🔄 Connected the machine-learning recommendation model with the web application
 
 ---
 
 # 🧰 Technology Architecture
 
 ```text
-                    News Recommendation System
-                              │
-                              ▼
-                           Python
-                              │
-              ┌───────────────┼───────────────┐
-              ▼               ▼               ▼
-           Pandas          Scikit-learn    Streamlit
-              │               │               │
-              ▼               ▼               ▼
-       Dataset Processing   TF-IDF        Web Interface
-              │               │               │
-              └───────────────┼───────────────┘
-                              ▼
-                    Recommendation Logic
-                              │
-                              ▼
-                     Personalized News
+                     News Recommendation System
+                               │
+                               ▼
+                            Python
+                               │
+              ┌────────────────┼────────────────┐
+              ▼                ▼                ▼
+           Pandas        Scikit-learn          Flask
+              │                │                │
+              ▼                ▼                ▼
+      Data Processing       TF-IDF          REST APIs
+                               │
+                               ▼
+                              KNN
+                               │
+                               ▼
+                       Cosine Distance
+                               │
+              ┌────────────────┴────────────────┐
+              ▼                                 ▼
+       Recommendation                      Web Interface
+              │                                 │
+              └────────────────┬────────────────┘
+                               ▼
+                         Similar News
+                           Articles
 ```
 
 ---
@@ -428,13 +648,13 @@ A future version could represent each article using its **headline and summary**
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/Amala0402/News_Recommendation_System.git
+git clone <your-github-repository-link>
 ```
 
 ### 2. Open the Project Directory
 
 ```bash
-cd News_Recommendation_System
+cd News-Recommendation-system-main
 ```
 
 ### 3. Install Required Libraries
@@ -443,22 +663,38 @@ cd News_Recommendation_System
 pip install -r requirements.txt
 ```
 
-### 4. Run the Streamlit Application
+### 4. Run the Flask Application
 
 ```bash
-streamlit run app.py
+cd server
+python app.py
 ```
 
 ### 5. Open the Application
 
-After running the command, Streamlit will provide a local URL where the application can be accessed.
+Open the following URL in your browser:
+
+```text
+http://localhost:5000
+```
+
+---
+
+# 🔗 Links
+
+* **GitHub:** `<your-github-repository-link>`
+* **Live Demo:** `<your-live-demo-link>`
 
 ---
 
 # 📌 Project Summary
 
-The **News Recommendation System** provides a simple and interactive approach to personalized news discovery. Instead of showing the same news to every user, the system observes user interactions, identifies preferred categories, filters the available dataset, and generates a personalized set of articles.
+The **News Recommendation System** is a **Content-Based Recommendation System** that recommends similar news articles based on their textual content.
 
-The project combines **Python, Pandas, Scikit-learn and Streamlit** to demonstrate how user preferences can be incorporated into a recommendation workflow.
+The system uses the **Kaggle News Category Dataset** and preprocesses the article data by handling missing values, removing duplicates, and combining the headline and short description.
 
-The current implementation focuses on category-based personalization while providing a foundation for future development of more advanced content-based and hybrid recommendation techniques.
+The combined article content is converted into numerical vectors using **TF-IDF Vectorization**. The system then uses **K-Nearest Neighbors (KNN)** with **Cosine Distance** to find the most similar articles to a user's search query.
+
+The recommendation model is integrated with a **Flask backend**, while the frontend is developed using **HTML, CSS, JavaScript, and Bootstrap**.
+
+The project demonstrates how **Natural Language Processing, Machine Learning, REST APIs, and Web Development** can be combined to build a practical **content-based news recommendation application**.
