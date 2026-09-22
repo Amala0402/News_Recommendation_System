@@ -682,8 +682,8 @@ http://localhost:5000
 
 # 🔗 Links
 
-* **GitHub:** `<your-github-repository-link>`
-* **Live Demo:** `<your-live-demo-link>`
+* **GitHub:** `https://github.com/Amala0402/News_Recommendation_System`
+* **Live Demo:** `https://github.com/Amala0402/News_Recommendation_System`
 
 ---
 
